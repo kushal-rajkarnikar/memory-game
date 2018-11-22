@@ -9,20 +9,20 @@
   width: device-width;
 }
 /* @font-face {
-  font-family: "Montserrat-Bold";
-  src: url('../fonts/Montserrat-Bold.otf');
+  font-family: "Open Sans";
+  src: url('../fonts/Open Sans.otf');
 }
 @font-face {
-  font-family: "Montserrat-Light";
-  src: url('../fonts/Montserrat-Light.otf');
+  font-family: "Open Sans";
+  src: url('../fonts/Open Sans.otf');
 }
 @font-face {
-  font-family: "Montserrat-Regular";
-  src: url('../fonts/Montserrat-Regular.otf');
+  font-family: "Open Sans";
+  src: url('../fonts/Open Sans.otf');
 }
 @font-face {
-  font-family: "Montserrat-SemiBold";
-  src: url('../fonts/Montserrat-SemiBold.otf');
+  font-family: "Open Sans";
+  src: url('../fonts/Open Sans.otf');
 } */
 .ease-height-transition {
   transition: height ease-in-out 150ms;
@@ -55,7 +55,7 @@ body {
 #inheadlines-navbar .navbar-nav > li > a {
   padding-top: 29px;
   padding-bottom: 30px;
-  font-family: "Montserrat-Regular";
+  font-family: "Open Sans";
   text-transform: uppercase;
   font-size: 19px;
 }
@@ -73,7 +73,7 @@ body {
   padding-bottom: 20px;
   color: white;
   font-size: 13px;
-  font-family: "Montserrat-Regular";
+  font-family: "Open Sans";
   text-transform: uppercase;
 }
 #inheadlines-navbar .dropdown-menu > li:hover a {
@@ -95,7 +95,8 @@ body {
 .current-category h1 {
   margin-top: 0;
   font-size: 32px;
-  font-family: "Montserrat-Bold";
+  font-family: "Open Sans";
+  font-weight: bold;
   color: #4f2a73;
 }
 .current-category {
@@ -112,7 +113,7 @@ body {
 }
 #toggle-language {
   float: right;
-  font-family: "Montserrat-Light";
+  font-family: "Open Sans";
   font-size: 13px;
 }
 #toggle-language a {
@@ -187,7 +188,8 @@ body {
 }
 .news-columns .news-text .news-headlines,
 .modal-title {
-  font-family: "Montserrat-SemiBold";
+  font-family: "Open Sans";
+  font-weight: bold;
   font-size: 20px;
   color: #44444d;
   line-height: 22px;
@@ -357,7 +359,7 @@ body {
 .yamm .dropdown.yamm-fw .dropdown-menu li a {
   color: white;
   text-decoration: none;
-  font-family: 'Montserrat-Regular';
+  font-family: 'Open Sans';
   font-size: 16px;
   display: block;
   clear: both;
@@ -507,6 +509,7 @@ h4.modal-title {
     margin-top: 30px;
     margin-bottom: 0px;
     font-size: 24px;
+    font-weight: bold;
   }
   body {
     padding-top: 60px;

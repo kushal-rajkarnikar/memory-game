@@ -4,7 +4,10 @@ class Header extends Component {
     render() {
         return (            
             <nav className="navbar navbar-default yamm navbar-fixed-top" role="navigation" id="inheadlines-navbar">
-            <div className="container">            
+            <div className="container">     
+            <div className="navbar-brand">
+            world wide news
+            </div>       
             <div className="navbar-header">
             <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#navbar">
             <span className="sr-only">Toggle navigation</span>
@@ -20,7 +23,7 @@ class Header extends Component {
             
             <ul className="nav navbar-nav">
             <li className="dropdown yamm-fw">
-            <a href="#" className="dropdown-toggle" data-toggle="dropdown" id="categories">Categories</a>
+            {/* <a href="#" className="dropdown-toggle" data-toggle="dropdown" id="categories">Categories</a> */}
             <ul className="dropdown-menu">
             <div className="container narrow-container">
             <li><a href="#">all news</a></li>
@@ -47,25 +50,7 @@ class Header extends Component {
             </ul>
             </li>
             </ul>
-            
-            <ul className="nav navbar-nav navbar-right">
-            <li>
-            <a href="https://play.google.com/store/apps/details?id=com.inheadline.news" target="_blank">
-            <img src="images/googleplay.png" alt="" />
-            </a>
-            <a href="#" className="no-padding">
-            company
-            </a>
-            </li>
-            <li>
-            <a href="https://itunes.apple.com/np/app/inheadline/id1115151854?mt=8" target="_blank">
-            <img src="images/appstore.png" alt="Click to enlarge" />                  
-            </a>
-            <a href="#" className="no-padding">
-            contact
-            </a>
-            </li>
-            </ul>                        
+
             </div>
             </div>
             </nav>
