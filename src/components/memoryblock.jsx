@@ -1,22 +1,21 @@
 import React, { Component } from 'react'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 class MemoryBlock extends Component {
 
-    constructor(props){
-        super(props);
-    }
-
     state = {
-        isFront: this.props.isFront,
+        status: this.props.status,
     }
 
     getClass (){
-        // console.log("this is " + this.props.isFront);
-        if (this.props.isFront === true) {
+        
+        if (this.props.status === "front") {
             return "card"
         }
-        else {
+        else if (this.props.status === "back") {
             return "card is-flipped"
+        }
+        else if (this.props.status === "matched") {
+            return "card matched"
         }
     }
 
@@ -25,13 +24,13 @@ class MemoryBlock extends Component {
         this.props.flipCard(idofCard);
 
 
-        if (this.state.isFront === true) {
-            let isFront = false;
-            this.setState({ isFront });                   
+        if (this.state.status === "front") {
+            let status = "back";
+            this.setState({ status });                   
         }
         else {
-            let isFront = true;
-            this.setState({ isFront });            
+            let status = "front";
+            this.setState({ status });            
         }
     }
      
@@ -40,8 +39,12 @@ class MemoryBlock extends Component {
 
         <div className="scene scene--card">
             <div onClick={()=>this.flipCard(this.props.id)} className={this.getClass()}>
-                <div className="card__face card__face--front">front {this.props.id}</div>
-                <div className="card__face card__face--back">back {this.props.id}</div>
+                <div className="card__face card__face--front">
+                <FontAwesomeIcon icon={this.props.icon} />
+                </div>
+                <div className="card__face card__face--back">
+                   
+                </div>
             </div>
         </div>
     )

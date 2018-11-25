@@ -2,79 +2,105 @@ import React, { Component } from 'react';
 import './App.css';
 import MemoryBlock from './components/memoryblock';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+
+library.add(fas)
+
 class App extends Component {
 
   constructor (props){
+    
     super(props);
     this.state = {
       pair: [],      
       memoryBlocks: [
-        { id: 1, isFront: false },
-        { id: 2, isFront: false },
-        { id: 3, isFront: false },
-        { id: 4, isFront: false },
-        { id: 5, isFront: false },
-        { id: 6, isFront: true },
-        { id: 7, isFront: false },
-        { id: 8, isFront: false },
+        { id: 1, status: "back", icon: "bicycle" },
+        { id: 2, status: "back", icon: "battery-quarter" },
+        { id: 3, status: "back", icon: "anchor" },
+        { id: 4, status: "back", icon: "anchor" },
+        { id: 5, status: "back", icon: "atom" },
+        { id: 6, status: "back", icon: "battery-quarter" },
+        { id: 7, status: "back", icon: "bicycle" },
+        { id: 8, status: "back", icon: "atom" },
       ]
     }
   }
 
  flipCard = (idofCard) =>{
-
    
-   
+     
   const memoryBlocks = [...this.state.memoryBlocks];
-
-   
   
-
-   if (this.state.memoryBlocks[idofCard - 1].isFront === true) {
-      memoryBlocks[idofCard - 1].isFront = false;   
+     if (this.state.memoryBlocks[idofCard - 1].status === "front") {
+      memoryBlocks[idofCard - 1].status = "back";   
    }
    else {
-     memoryBlocks[idofCard - 1].isFront = true;
+     memoryBlocks[idofCard - 1].status = "front";
    }
-
-   
-   
+     
    
    if (this.state.pair.length < 2) {
      let pair = this.state.pair;
-     console.log(this.state.pair.length);
-     if (this.state.pair.length === 1) {
 
-      pair[1] = idofCard;
-     }
+     pair.push(idofCard)
+     
+     this.setState({ pair: pair }); 
 
-    else {
-      pair[0] = idofCard;
+     if (this.state.pair.length === 2){
+
+      let memoryBlocks = this.state.memoryBlocks;
+
+      if (this.state.memoryBlocks[this.state.pair[0] - 1].icon === this.state.memoryBlocks[this.state.pair[1] - 1].icon){        
+        setTimeout(() => {
+          memoryBlocks[this.state.pair[0] - 1].status = "matched";
+          memoryBlocks[this.state.pair[1] - 1].status = "matched";
+          let pair = this.state.pair;
+          pair.length = 0;
+          this.setState({pair});  
+        },1000)
+        
+      }
     }
-     this.setState({ pair: pair });                     
+     
+    //  if (this.state.pair[0] === this.state.pair[1]){
+    //   memoryBlocks[this.state.pair[0] - 1].
+    //  }
      
    }
+   
    else {
-     console.log("third click",idofCard, this.state.pair[0]);
-     this.state.pair[0] = this.state.pair[1]; 
-     this.state.pair[1] = idofCard;          
-     let memoryBlocks = this.state.memoryBlocks;
-     console.log("milan bhai help " + this.state.pair[0]);
-     memoryBlocks[this.state.pair[0] - 1].isFront = false;
-    
-     let newValue = memoryBlocks[this.state.pair[0] - 1].isFront;
-     let valuee = this.state.memoryBlocks[this.state.pair[0] - 1];
-     let oldvalue = memoryBlocks[idofCard - 1];
-   console.log("new value is " + newValue);
-     this.setState({ oldvalue: valuee });                     
 
+  
     
+     let memoryBlocks = this.state.memoryBlocks;
+     memoryBlocks.map(memoryBlock=>{
+        if (memoryBlock.status!="matched"){
+            memoryBlock.status = "back"
+        }
+      }
+       
+    );
+
+    memoryBlocks[idofCard - 1].status = "front";
+    
+
+      
+    
+     let pair = this.state.pair;
+     pair.shift();
+     pair.shift();
+     pair.push(idofCard);
+
+  
+     this.setState({memoryBlocks, pair});        
      
    }
 
    this.setState({ memoryBlocks });
     
  }
+
   
   render() {
 
@@ -86,7 +112,7 @@ class App extends Component {
         <div className="canvas">
 
         {memoryBlocks.map(memoryBlock=>
-            <MemoryBlock memoryBlocks={memoryBlocks} id={memoryBlock.id} isFront={memoryBlock.isFront} key={memoryBlock.id} pair={pair} flipCard={this.flipCard}/>
+            <MemoryBlock memoryBlocks={memoryBlocks} id={memoryBlock.id} status={memoryBlock.status} key={memoryBlock.id} pair={pair} flipCard={this.flipCard} icon={memoryBlock.icon}/>
         )}
         </div>
         

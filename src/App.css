@@ -27,11 +27,15 @@ body { font-family: sans-serif; height: 100%; width: 100%;}
   transition: transform 1s;
   transform-style: preserve-3d;
   cursor: pointer;
-  position: relative;
+  position: relative;  
 }
 
 .card.is-flipped {
   transform: rotateY(180deg);
+}
+
+.card.matched{  
+  visibility: hidden;
 }
 
 .card__face {
@@ -47,10 +51,16 @@ body { font-family: sans-serif; height: 100%; width: 100%;}
 }
 
 .card__face--front {
-  background: red;  
+  background: #aa0044;  
 }
 
 .card__face--back {
-  background: blue;  
+  background: repeating-linear-gradient(45deg, #606dbc, #606dbc 10px, #465298 10px, #465298 20px), repeating-linear-gradient(
+    310deg,
+    black,
+    black 10px,
+    white 10px,
+    white 20px
+  );  
   transform: rotateY(180deg);
 }
