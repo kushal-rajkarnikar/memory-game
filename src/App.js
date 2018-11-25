@@ -31,6 +31,9 @@ class App extends Component {
    
      
   const memoryBlocks = [...this.state.memoryBlocks];
+
+
+
   
      if (this.state.memoryBlocks[idofCard - 1].status === "front") {
       memoryBlocks[idofCard - 1].status = "back";   
@@ -49,6 +52,8 @@ class App extends Component {
 
      if (this.state.pair.length === 2){
 
+      if (memoryBlocks[this.state.pair[0] - 1] != memoryBlocks[this.state.pair[1] - 1]){
+
       let memoryBlocks = this.state.memoryBlocks;
 
       if (this.state.memoryBlocks[this.state.pair[0] - 1].icon === this.state.memoryBlocks[this.state.pair[1] - 1].icon){        
@@ -58,9 +63,23 @@ class App extends Component {
           let pair = this.state.pair;
           pair.length = 0;
           this.setState({pair});  
+
+          let gameOver = memoryBlocks.every(areAllBlocksMatched);
+
+          function areAllBlocksMatched(currentMemoryBlock){
+            return currentMemoryBlock.status === "matched";
+          }
+
+          if (gameOver){
+            setTimeout(() => {
+            alert("Game Over");
+            }, 100)
+          }
+        
         },1000)
         
       }
+    }
     }
      
     //  if (this.state.pair[0] === this.state.pair[1]){
@@ -98,6 +117,8 @@ class App extends Component {
    }
 
    this.setState({ memoryBlocks });
+
+   
     
  }
 
