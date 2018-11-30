@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import MemoryBlock from './components/memoryblock';
+import LiveChat from 'react-livechat'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -15,27 +16,56 @@ class App extends Component {
     this.state = {
       initializeGame: false,
       numberofBlocks: 8,
-      icons: ["ad","address-book","address-card","adjust","air-freshener","align-center","align-justify","align-left","align-right","allergies","ambulance","american-sign-language-interpreting","anchor","angle-double-down","angle-double-left","angle-double-right","angle-double-up","angle-down","angle-left","angle-right","angle-up","angry","ankh","apple-alt","archive","archway","arrow-alt-circle-down","arrow-alt-circle-left","arrow-alt-circle-right","arrow-alt-circle-up","arrow-circle-down","arrow-circle-left","arrow-circle-right","arrow-circle-up","arrow-down","arrow-left","arrow-right","arrow-up","arrows-alt","arrows-alt-h","arrows-alt-v","assistive-listening-systems","asterisk","at","atlas","atom","audio-description","award","backspace","backward","balance-scale","ban","band-aid","barcode","bars","baseball-ball","basketball-ball","bath","battery-empty","battery-full","battery-half","battery-quarter","battery-three-quarters"],
+      icons: ["ad","address-book","address-card","adjust","air-freshener","align-center","align-justify","align-left","align-right","allergies","ambulance","american-sign-language-interpreting","anchor","angle-double-down","angle-double-left","angle-double-right","angle-double-up","angle-down","angle-left","angle-right","angle-up","angry","ankh","apple-alt","archive","archway","arrow-alt-circle-down","arrow-alt-circle-left","arrow-alt-circle-right","arrow-alt-circle-up","arrow-circle-down","arrow-circle-left"],
       pair: [],      
-      memoryBlocks: [
-        { id: 1, status: "back", icon: "bicycle" },
-        { id: 2, status: "back", icon: "battery-quarter" },
-        { id: 3, status: "back", icon: "anchor" },
-        { id: 4, status: "back", icon: "anchor" },
-        { id: 5, status: "back", icon: "atom" },
-        { id: 6, status: "back", icon: "battery-quarter" },
-        { id: 7, status: "back", icon: "bicycle" },
-        { id: 8, status: "back", icon: "atom" },
-      ]
+      memoryBlocks: []
     }
 
     this.setNumberofBlocks = this.setNumberofBlocks.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
+
   setNumberofBlocks(event){
-    
-    this.setState({initializeGame: true });
+
+    let memoryBlocks = this.state.memoryBlocks;
+
+    let arrayOfRandomNumbers = [];
+        
+    for (let counter = 0; counter < this.state.numberofBlocks; counter++) {
+      
+      let iconSet=[];
+
+      if (counter >= this.state.numberofBlocks/2){
+        iconSet = { id: counter, status: "back", icon: this.state.icons[counter - this.state.numberofBlocks / 2] };
+      }
+      else{
+          iconSet = { id: counter, status: "back", icon: this.state.icons[counter] };
+      }
+            
+
+      let randomNumber = Math.floor((Math.random() * this.state.numberofBlocks) + 1) - 1;
+
+      // let checkifRandom = () => {
+      //   if (arrayOfRandomNumbers.includes(randomNumber)){
+      //     arrayOfRandomNumbers.push(randomNumber);
+      //   }
+      // }
+
+      
+
+      console.log(randomNumber);
+
+      if (memoryBlocks[randomNumber] == null){
+          memoryBlocks[randomNumber] = iconSet;
+      }
+
+      
+
+      // memoryBlocks.push(iconSet);
+    }   
+
+    this.setState({ initializeGame: true, memoryBlocks: memoryBlocks });     
     event.preventDefault();
   }
 
@@ -46,19 +76,20 @@ class App extends Component {
   
   flipCard = (idofCard) =>{
     
+
     
-    const memoryBlocks = [...this.state.memoryBlocks];
+    let memoryBlocks = [...this.state.memoryBlocks];
+       
+    console.log(idofCard);
     
-    
-    
-    
-    if (this.state.memoryBlocks[idofCard - 1].status === "front") {
-      memoryBlocks[idofCard - 1].status = "back";   
+    if (this.state.memoryBlocks[idofCard].status === "front") {
+      memoryBlocks[idofCard].status = "back";   
     }
     else {
-      memoryBlocks[idofCard - 1].status = "front";
+      memoryBlocks[idofCard].status = "front";
     }
     
+    this.setState({ memoryBlocks });
     
     if (this.state.pair.length < 2) {
       let pair = this.state.pair;
@@ -73,10 +104,10 @@ class App extends Component {
           
           let memoryBlocks = this.state.memoryBlocks;
           
-          if (this.state.memoryBlocks[this.state.pair[0] - 1].icon === this.state.memoryBlocks[this.state.pair[1] - 1].icon){        
+          if (this.state.memoryBlocks[this.state.pair[0]].icon === this.state.memoryBlocks[this.state.pair[1]].icon){        
             setTimeout(() => {
-              memoryBlocks[this.state.pair[0] - 1].status = "matched";
-              memoryBlocks[this.state.pair[1] - 1].status = "matched";
+              memoryBlocks[this.state.pair[0]].status = "matched";
+              memoryBlocks[this.state.pair[1]].status = "matched";
               let pair = this.state.pair;
               pair.length = 0;
               this.setState({pair});  
@@ -118,7 +149,7 @@ class App extends Component {
       
       );
       
-      memoryBlocks[idofCard - 1].status = "front";
+      memoryBlocks[idofCard].status = "front";
       
       
       
@@ -133,7 +164,7 @@ class App extends Component {
       
     }
     
-    this.setState({ memoryBlocks });
+    
     
     
     
@@ -141,9 +172,7 @@ class App extends Component {
   
   
   render() {
-    
-    console.log("The icons are: " + this.state.icons);
-    
+
     const { memoryBlocks, pair} = this.state;
     
     if (this.state.initializeGame){
@@ -164,6 +193,7 @@ class App extends Component {
         
         else {
           return (
+                
             <div className="home">
             <h1>Memory Game</h1>
             <br/><br/>
@@ -172,9 +202,7 @@ class App extends Component {
             <span>Select number of blocks:</span>
             <select value={this.state.numberofBlocks} onChange={this.handleChange}>
               <option value="8">8</option>
-              <option value="16">16</option>
-              <option value="32">32</option>
-              <option value="64">64</option>
+              <option value="16">16</option>                            
             </select>
             <br/><br/>
             <input type="submit" value="START GAME"></input>

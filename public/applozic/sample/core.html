@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<script src="../js/jquery.min.js"></script>
+		<!-- remomve comment from below file to usey applozic.chat.min.js file from repository and comment out cdn file -->
+		<!-- <script type="text/javascript" src="../../applozic.chat.min.js"></script> -->
+		<script type="text/javascript" src="https://cdn.applozic.com/applozic/applozic.chat-5.0.min.js"></script>
+
+		<!-- Custom JS -->
+		<script>
+
+		</script>
+	</head>
+<body>
+	<div>Sample without UI to get data from Applozic Server APIs and connect to websocket connection.</div>
+	<div>Go to src/js/app folder and add the following js files:</div>
+	<ul>
+		<li>applozic.chat.min.js</li>
+	</ul>
+
+	<div>See modules/api/applozic.api.js file for all available functions.</div>.
+
+	<div>Call the sample below code to make user login, all remaining function calls will work after login only.</div>
+	<div>Note: Replace userId, displayName and appId with your user and application key details.</div>
+	<pre>
+			var events = {
+				'onConnectFailed': function() {},
+				'onConnect': function() {},
+				'onMessageDelivered': function() {},
+				'onMessageRead': function() {},
+				'onMessageDeleted': function() {},
+				'onConversationDeleted': function() {},
+				'onUserConnect': function() {},
+				'onUserDisconnect': function() {},
+				'onConversationReadFromOtherSource': function() {},
+				'onConversationRead': function() {},
+				'onMessageReceived': function() {},
+				'onMessageSentUpdate': function() {},
+				'onMessageSent': function() {},
+				'onUserBlocked': function() {},
+				'onUserUnblocked': function() {},
+				'onUserActivated': function() {},
+				'onUserDeactivated': function() {},
+				'connectToSocket': function() {},
+				'onMessage': function(resp) {
+					console.log(resp);
+				}
+			};
+
+			window.Applozic.ALApiService.login({
+				data: { baseUrl : 'https://apps.applozic.com',
+					alUser:
+							{userId: 'PASS_USER_ID_HERE', password: 'PASS_PASSWORD_HERE', displayName: 'PASS_USER_DISPLAY_NAME', appVersionCode: 108, applicationId: 'applozic-sample-app'}
+				},
+				success: function(response) {
+					console.log(response);
+					window.Applozic.ALSocket.init("applozic-sample-app", response, events);
+				},
+				error: function() {
+
+				}
+			});
+	</pre>
+
+</body>
+
+</html>
